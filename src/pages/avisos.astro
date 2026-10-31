@@ -1,0 +1,38 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const avisos = await getCollection("avisos");
+
+avisos.sort((a, b) => b.data.fecha.getTime() - a.data.fecha.getTime());
+
+// Error comprobado al eliminar "titulo" de cata-septiembre.md:
+// data does not match collection schema. titulo: Required
+---
+
+<BaseLayout titulo="Avisos">
+    <div class="mx-auto max-w-6xl px-4 py-12">
+        <h1 class="mb-8 text-4xl font-bold text-amber-950">Avisos</h1>
+
+        <div class="space-y-6">
+            {
+                avisos.map((aviso) => (
+                    <article
+                        class={`rounded-lg p-6 ${
+                            aviso.data.importante
+                                ? "border-2 border-amber-700 bg-amber-100"
+                                : "bg-amber-50"
+                        }`}
+                    >
+                        <h2 class="mb-2 text-2xl font-bold text-amber-950">
+                            {aviso.data.titulo}
+                        </h2>
+                        <p class="text-sm text-gray-600">
+                            {aviso.data.fecha.toLocaleDateString("es-ES")}
+                        </p>
+                    </article>
+                ))
+            }
+        </div>
+    </div>
+</BaseLayout>

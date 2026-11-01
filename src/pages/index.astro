@@ -1,16 +1,83 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout titulo="Tueste Norte">
+	<section class="mx-auto max-w-6xl px-4 py-12">
+		<h1 class="text-4xl font-bold text-amber-950">Tueste Norte</h1>
+
+		<p class="mt-4 text-lg text-gray-700">
+			Café de especialidad, tostado con pasión.
+		</p>
+
+		<p class="mt-4 max-w-2xl text-gray-600">
+			Seleccionamos cafés de distintos orígenes y los tostamos cuidando
+			cada detalle para que puedas disfrutar de todo su aroma y sabor.
+		</p>
+
+		<a
+			href="/catalogo"
+			class="mt-6 inline-block rounded-lg bg-amber-800 px-6 py-3 font-semibold text-white"
+		>
+			Ver nuestros cafés
+		</a>
+	</section>
+
+	<section class="bg-amber-50">
+		<div class="mx-auto max-w-6xl px-4 py-12">
+			<h2 class="mb-8 text-3xl font-bold text-amber-950">
+				Descubre Tueste Norte
+			</h2>
+			<div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+				<article class="rounded-lg bg-white p-6">
+					<h3 class="mb-3 text-xl font-bold text-amber-950">
+						Nuestros cafés
+					</h3>
+
+					<p class="text-gray-700">
+						Descubre nuestra selección de cafés de distintos
+						orígenes y perfiles de sabor.
+					</p>
+					<a
+						href="/catalogo"
+						class="mt-4 inline-block font-semibold text-amber-800"
+					>
+						Ver catálogo →
+					</a>
+				</article>
+
+				<article class="rounded-lg bg-white p-6">
+					<h3 class="mb-3 text-xl font-bold text-amber-950">
+						Quiénes somos
+					</h3>
+
+					<p class="text-gray-700">
+						Conoce nuestra historia y nuestra forma de entender el
+						café de especialidad.
+					</p>
+					<a
+						href="/quienes-somos"
+						class="mt-4 inline-block font-semibold text-amber-800"
+					>
+						Conócenos →
+					</a>
+				</article>
+
+				<article class="rounded-lg bg-white p-6">
+					<h3 class="mb-3 text-xl font-bold text-amber-950">Blog</h3>
+
+					<p class="text-gray-700">
+						Aprende nuevas recetas y métodos de preparación
+						paradisfrutar del café en casa.
+					</p>
+					<a
+						href="/blog"
+						class="mt-4 inline-block font-semibold text-amber-800"
+					>
+						Ver blog →
+					</a>
+				</article>
+			</div>
+		</div>
+	</section>
+</BaseLayout>

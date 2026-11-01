@@ -1,0 +1,33 @@
+---
+interface Props {
+  nombre: string;
+  origen: string;
+  notas: string;
+  tueste: string;
+  precio: number;
+}
+
+const { nombre, origen, notas, tueste, precio } = Astro.props;
+---
+
+<article class="rounded-lg bg-amber-50 p-6">
+  <h2 class="mb-3 text-2xl font-bold text-amber-950">
+    {nombre}
+  </h2>
+
+  <p class="mb-2 text-gray-700">
+    <strong>Origen:</strong> {origen}
+  </p>
+
+  <p class="mb-2 text-gray-700">
+    <strong>Notas de cata:</strong> {notas}
+  </p>
+
+  <p class="mb-2 text-gray-700">
+    <strong>Tueste:</strong> {tueste}
+  </p>
+
+  <p class="font-semibold text-amber-900">
+    {precio.toFixed(2)} €
+  </p>
+</article>

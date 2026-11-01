@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CafeCard from "../components/CafeCard.astro";
+import { cafes } from "../data/cafes";
+---
+
+<BaseLayout titulo="Catálogo | Tueste Norte">
+    <section class="mx-auto max-w-6xl px-4 py-12">
+        <h1 class="mb-4 text-4xl font-bold text-amber-950">Nuestro catálogo</h1>
+
+        <p class="mb-8 text-lg text-gray-700">
+            Descubre nuestra selección de cafés de especialidad.
+        </p>
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {
+                cafes.map((cafe) => (
+                    <CafeCard
+                        nombre={cafe.nombre}
+                        origen={cafe.origen}
+                        notas={cafe.notas}
+                        tueste={cafe.tueste}
+                        precio={cafe.precio}
+                    />
+                ))
+            }
+        </div>
+    </section>
+</BaseLayout>

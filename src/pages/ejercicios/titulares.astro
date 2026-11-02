@@ -1,0 +1,31 @@
+---
+const WP_API_URL = import.meta.env.WP_API_URL;
+
+const respuesta = await fetch(`${WP_API_URL}/wp/v2/posts`);
+const entradas = await respuesta.json();
+
+// Este console.log aparece en la terminal donde se está ejecutando Astro,
+// no en la consola del navegador, porque está dentro del frontmatter.
+// El código del frontmatter se ejecuta en el servidor durante la generación de la página.
+
+console.log("Número de entradas recibidas:", entradas.length);
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Titulares del blog</title>
+  </head>
+
+  <body>
+    <h1>Titulares del blog</h1>
+
+    <ul>
+      {entradas.map((entrada: any) => (
+        <li>
+          {entrada.title.rendered} ({new Date(entrada.date).toLocaleDateString('es-ES')})
+        </li>
+      ))}
+    </ul>
+  </body>
+</html>

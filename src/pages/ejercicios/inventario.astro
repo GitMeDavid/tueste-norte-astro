@@ -1,0 +1,39 @@
+---
+const WP_API_URL = import.meta.env.WP_API_URL;
+
+const respuesta = await fetch(`${WP_API_URL}/wp/v2/cafes?per_page=3`);
+
+const totalCafes = respuesta.headers.get("X-WP-Total");
+const totalPaginas = respuesta.headers.get("X-WP-TotalPages");
+
+const todosLosCafes = [];
+
+for (let pagina = 1; pagina <= Number(totalPaginas); pagina++) {
+    const respuestaPagina = await fetch(
+        `${WP_API_URL}/wp/v2/cafes?per_page=3&page=${pagina}`,
+    );
+
+    const cafesPagina = await respuestaPagina.json();
+
+    todosLosCafes.push(...cafesPagina);
+}
+---
+
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Inventario de cafés</title>
+    </head>
+
+    <body>
+        <h1>Inventario de cafés</h1>
+
+        <p>Hay {totalCafes} cafés repartidos en {totalPaginas} páginas.</p>
+
+        <h2>Lista completa de cafés</h2>
+
+        <ul>
+            {todosLosCafes.map((cafe: any) => <li>{cafe.title.rendered}</li>)}
+        </ul>
+    </body>
+</html>

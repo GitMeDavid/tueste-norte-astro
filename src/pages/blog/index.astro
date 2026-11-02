@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const posts = await getCollection("blog");
+posts.sort((a, b) => b.data.fecha.getTime() - a.data.fecha.getTime());
+---
+
+<BaseLayout titulo="Blog | Tueste Norte">
+    <section class="mx-auto max-w-6xl px-4 py-12">
+        <h1 class="mb-4 text-4xl font-bold text-amber-950">Blog</h1>
+
+        <p class="mb-8 text-lg text-gray-700">
+            Recetas y métodos de preparación para disfrutar del mejor café en
+            casa.
+        </p>
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {
+                posts.map((post) => (
+                    <article class="rounded-lg bg-amber-50 p-6">
+                        <h2 class="mb-3 text-2xl font-bold text-amber-950">
+                            <a
+                                href={`/blog/${post.id}`}
+                                class="hover:underline"
+                            >
+                                {post.data.titulo}
+                            </a>
+                        </h2>
+
+                        <p class="mb-3 text-gray-600">
+                            {post.data.fecha.toLocaleDateString("es-ES")}
+                        </p>
+
+                        <p class="text-gray-700">{post.data.descripcion}</p>
+                    </article>
+                ))
+            }
+        </div>
+    </section>
+</BaseLayout>

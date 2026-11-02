@@ -1,0 +1,52 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("blog");
+
+    return posts.map((post) => ({
+        params: { slug: post.id },
+        props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BaseLayout titulo={`${post.data.titulo} | Tueste Norte`}>
+    <article class="mx-auto max-w-3xl px-4 py-12">
+        <div class="contenido-blog">
+            <Content />
+        </div>
+    </article>
+</BaseLayout>
+
+<style>
+    .contenido-blog :global(h1) {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: #451a03;
+        margin-bottom: 1rem;
+    }
+
+    .contenido-blog :global(h2) {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #451a03;
+        margin-top: 2rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .contenido-blog :global(p) {
+        margin-bottom: 1rem;
+        line-height: 1.2;
+    }
+
+    .contenido-blog :global(ul) {
+        list-style-type: disc;
+        margin-bottom: 1rem;
+        padding-left: 1.5rem;
+    }
+</style>

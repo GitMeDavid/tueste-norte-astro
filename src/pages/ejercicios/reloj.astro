@@ -1,0 +1,27 @@
+---
+export const prerender = true;
+
+const horaActual = new Date().toLocaleTimeString('es-ES');
+
+/*
+Conclusiones del Ejercicio 3:
+1. Con SSR, el frontmatter se ejecuta en el servidor en cada petición.
+2. Por eso, al recargar la página, la hora cambia y se actualiza.
+3. Con prerender = true, Astro ejecuta el frontmatter durante el build.
+4. La hora queda guardada en el HTML generado y no cambia al recargar.
+5. Esto demuestra la diferencia entre generar HTML por petición y generarlo previamente.
+*/
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Reloj SSR</title>
+  </head>
+
+  <body>
+    <h1>Reloj del servidor</h1>
+
+    <p>La hora actual es: {horaActual}</p>
+  </body>
+</html>

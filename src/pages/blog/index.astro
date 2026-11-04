@@ -1,9 +1,10 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { obtenerRecetas } from "../../lib/wp";
 
-const posts = await getCollection("blog");
-posts.sort((a, b) => b.data.fecha.getTime() - a.data.fecha.getTime());
+const posts = await obtenerRecetas();
+
+posts.sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
 ---
 
 <BaseLayout titulo="Blog | Tueste Norte">
@@ -18,20 +19,28 @@ posts.sort((a, b) => b.data.fecha.getTime() - a.data.fecha.getTime());
             {
                 posts.map((post) => (
                     <article class="rounded-lg bg-amber-50 p-6">
+                        {post.imagen && (
+                            <img
+                                src={post.imagen}
+                                alt={`Fotografía de ${post.titulo}`}
+                                class="mb-4 h-48 w-full rounded-lg object-cover"
+                            />
+                        )}
+
                         <h2 class="mb-3 text-2xl font-bold text-amber-950">
                             <a
-                                href={`/blog/${post.id}`}
+                                href={`/blog/${post.slug}`}
                                 class="hover:underline"
                             >
-                                {post.data.titulo}
+                                {post.titulo}
                             </a>
                         </h2>
 
                         <p class="mb-3 text-gray-600">
-                            {post.data.fecha.toLocaleDateString("es-ES")}
+                            {new Date(post.fecha).toLocaleDateString("es-ES")}
                         </p>
 
-                        <p class="text-gray-700">{post.data.descripcion}</p>
+                        <Fragment set:html={post.descripcion} />
                     </article>
                 ))
             }

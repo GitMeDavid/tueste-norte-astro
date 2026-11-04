@@ -1,7 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CafeCard from "../components/CafeCard.astro";
-import { cafes } from "../data/cafes";
+import { obtenerCafes } from "../lib/wp";
+
+const cafes = await obtenerCafes();
+
+
 ---
 
 <BaseLayout titulo="Catálogo | Tueste Norte">
@@ -16,10 +20,12 @@ import { cafes } from "../data/cafes";
                 cafes.map((cafe) => (
                     <CafeCard
                         nombre={cafe.nombre}
+                        slug={cafe.slug}
                         origen={cafe.origen}
                         notas={cafe.notas}
                         tueste={cafe.tueste}
                         precio={cafe.precio}
+                        imagen={cafe.imagen}
                     />
                 ))
             }

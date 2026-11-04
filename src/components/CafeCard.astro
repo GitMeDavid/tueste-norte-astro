@@ -1,33 +1,56 @@
 ---
 interface Props {
   nombre: string;
+  slug?: string;
   origen: string;
   notas: string;
   tueste: string;
   precio: number;
+  imagen?: string;
 }
 
-const { nombre, origen, notas, tueste, precio } = Astro.props;
+const { nombre, slug, origen, notas, tueste, precio, imagen } = Astro.props;
 ---
 
 <article class="rounded-lg bg-amber-50 p-6">
+  {
+    imagen && (
+      <img
+        src={imagen}
+        alt={`Fotografía del café ${nombre}`}
+        class="mb-4 h-48 w-full rounded-lg object-cover"
+      />
+    )
+  }
   <h2 class="mb-3 text-2xl font-bold text-amber-950">
     {nombre}
   </h2>
 
   <p class="mb-2 text-gray-700">
-    <strong>Origen:</strong> {origen}
+    <strong>Origen:</strong>{" "}
+    {origen}
   </p>
 
   <p class="mb-2 text-gray-700">
-    <strong>Notas de cata:</strong> {notas}
+    <strong>Notas de cata:</strong>{" "}
+    {notas}
   </p>
 
   <p class="mb-2 text-gray-700">
-    <strong>Tueste:</strong> {tueste}
+    <strong>Tueste:</strong>{" "}
+    {tueste}
   </p>
 
   <p class="font-semibold text-amber-900">
     {precio.toFixed(2)} €
   </p>
+
+  {slug && (
+  <a
+    href={`/cafes/${slug}`}
+    class="mt-4 inline-block rounded-lg bg-amber-900 px-4 py-2 text-white hover:bg-amber-800"
+  >
+    Ver ficha
+  </a>
+)}
 </article>

@@ -1,0 +1,58 @@
+---
+import { obtenerCafePorSlug } from "../../lib/wp";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const { slug } = Astro.params;
+
+const cafe = await obtenerCafePorSlug(slug ?? "");
+
+if (!cafe) {
+    Astro.response.status = 404;
+}
+---
+
+<BaseLayout titulo="Ficha del café">
+    <main class="mx-auto max-w-6xl px-4 py-12">
+        <h1 class="text-3xl font-bold text-amber-950">
+            {cafe?.nombre ?? "Café no encontrado"}
+        </h1>
+
+        {
+            cafe && (
+                <div
+                    class="mt-4 text-lg text-gray-700"
+                    set:html={cafe.descripcion}
+                />
+            )
+        }
+
+        <p class="mt-4 text-lg text-gray-700">
+            <strong>Origen:</strong>{" "}
+            {cafe?.origen}
+        </p>
+
+        <p class="mt-4 text-lg text-gray-700">
+            <strong>Notas de cata:</strong>{" "}
+            {cafe?.notas}
+        </p>
+
+        <p class="mt-4 text-lg text-gray-700">
+            <strong>Nivel de tueste:</strong>{" "}
+            {cafe?.tueste}
+        </p>
+
+        <p class="mt-4 text-xl font-bold text-amber-950">
+            Precio: {cafe?.precio?.toFixed(2)} €
+        </p>
+
+        {
+            cafe?.imagen && (
+                <img
+                    src={cafe.imagen}
+                    alt={`Fotografía de ${cafe.nombre}`}
+                    class="mt-6 h-64 w-full rounded-lg object-cover shadow-md"
+                />
+            )
+        }
+    </main>
+</BaseLayout>
